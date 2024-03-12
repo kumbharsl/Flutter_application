@@ -20,7 +20,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Icons.home_outlined,
               color: Colors.black,
             ),
-            label: 'Home',
+            label: 'Home demo',
           ),
           NavigationDestination(
             // selectedIcon: Icon(Icons.home),
