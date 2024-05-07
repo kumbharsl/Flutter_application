@@ -17,10 +17,13 @@ class _DefaultScreenState extends State {
         child: Column(
           children: [
             const SizedBox(height: 80),
-            Image.asset('./assets/images/plant2.png'),
+            Image.asset("assets/images/plant2.png"),
             Text(
               "Enjoy your \nlife with plant",
-              style: GoogleFonts.poppins(fontSize: 35),
+              style: GoogleFonts.poppins(
+                fontSize: 35,
+                fontWeight: FontWeight.w600,
+              ),
             ),
             const SizedBox(
               height: 70,

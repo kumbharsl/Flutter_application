@@ -35,7 +35,7 @@ class _HomeState extends State {
                     'Find your \nfavorite plants',
                     style: GoogleFonts.poppins(
                       fontSize: 24,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),

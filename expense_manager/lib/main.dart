@@ -1,3 +1,4 @@
+import 'package:expense_manager/home.dart';
 import 'package:expense_manager/splashscreen.dart';
 import 'package:flutter/material.dart';
 
