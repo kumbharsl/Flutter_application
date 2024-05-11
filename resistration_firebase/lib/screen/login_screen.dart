@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:resistration_firebase/screen/resistration_screen.dart';
@@ -13,6 +15,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreen extends State<LoginScreen> {
+  Future<FirebaseApp> _intializedFirebase() async {
+    FirebaseApp firebaseApp = await Firebase.initializeApp();
+    return firebaseApp;
+  }
+
   String email = "", password = "";
 
   TextEditingController mailcontroller = new TextEditingController();
@@ -26,6 +33,8 @@ class _LoginScreen extends State<LoginScreen> {
           .signInWithEmailAndPassword(email: email, password: password);
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => DashBoard()));
+      mailcontroller.clear();
+      passwordcontroller.clear();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -148,82 +157,31 @@ class _LoginScreen extends State<LoginScreen> {
                       const SizedBox(
                         height: 25.0,
                       ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            bool checkValidation =
-                                _formkey.currentState!.validate();
+                      GestureDetector(
+                        onTap: () {
+                          if (_formkey.currentState!.validate()) {
                             setState(() {
                               email = mailcontroller.text;
                               password = passwordcontroller.text;
                             });
-                            if (checkValidation) {
-                              bool flag = false;
-
-                              if (flag == true) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    backgroundColor: Colors.white,
-                                    content: Text(
-                                      'Login Succesfull',
-                                      style: TextStyle(
-                                          color: Colors.green,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                );
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (e) => const DashBoard(),
-                                  ),
-                                );
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text(
-                                      'Please enter valid email & password',
-                                    ),
-                                  ),
-                                );
-                              }
-                              //   ScaffoldMessenger.of(context).showSnackBar(
-                              //     const SnackBar(
-                              //       backgroundColor: Colors.white,
-                              //       content: Text(
-                              //         'Login Succesfull',
-                              //         style: TextStyle(
-                              //             color: Colors.green,
-                              //             fontSize: 17,
-                              //             fontWeight: FontWeight.bold),
-                              //       ),
-                              //     ),
-                              //   );
-                              //   Navigator.pushReplacement(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //       builder: (e) => const HomeScreen(),
-                              //     ),
-                              //   );
-                            } else {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  backgroundColor: Colors.red,
-                                  content: Text(
-                                    'Please Enter Email & Password',
-                                  ),
-                                ),
-                              );
-                            }
-
-                            // if (_formSignInKey.currentState!.validate() &&
-                            //     rememberPassword) {
-                            // } else if (!rememberPassword) {}
-                          },
-                          child: const Text('Sign In'),
-                        ),
+                          }
+                          userLogin();
+                        },
+                        child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: EdgeInsets.symmetric(
+                                vertical: 13.0, horizontal: 30.0),
+                            decoration: BoxDecoration(
+                                color: Color(0xFF273671),
+                                borderRadius: BorderRadius.circular(30)),
+                            child: Center(
+                                child: Text(
+                              "Sign In",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22.0,
+                                  fontWeight: FontWeight.w500),
+                            ))),
                       ),
                       const SizedBox(
                         height: 25.0,

@@ -7,9 +7,9 @@ import 'package:resistration_firebase/view/resistration_list.dart';
 class AuthMethods {
   final FirebaseAuth auth = FirebaseAuth.instance;
 
-  getCurrentUser() async {
-    return await auth.currentUser;
-  }
+//   getCurrentUser() async {
+  // return await auth.currentUser;
+//   }
 
   signInWithGoogle(BuildContext context) async {
     final FirebaseAuth firebaseAuth = FirebaseAuth.instance;

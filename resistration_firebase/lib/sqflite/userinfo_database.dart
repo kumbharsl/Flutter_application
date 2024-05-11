@@ -1,5 +1,5 @@
-dynamic database;
+// dynamic database;
 
-Future<void> insertUserData() async {
-  final localDB = await database;
-}
+// Future<void> insertUserData() async {
+//   final localDB = await database;
+// }

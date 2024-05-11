@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:resistration_firebase/screen/login_screen.dart';
@@ -22,6 +23,10 @@ class _ResistrationScreen extends State<ResistrationScreen> {
   TextEditingController namecontroller = new TextEditingController();
   TextEditingController passwordcontroller = new TextEditingController();
   TextEditingController mailcontroller = new TextEditingController();
+
+  // addSignUP(){
+  //   MyFirebaseAuth.addSignUp(namecontroller.text, mailcontroller.text, passwordcontroller.text);
+  // }
 
   final _formkey = GlobalKey<FormState>();
 
@@ -65,6 +70,28 @@ class _ResistrationScreen extends State<ResistrationScreen> {
         }
       }
     }
+  }
+
+  addData(String name, String mail) async {
+    if (name == "" && mail == "") {
+      log("Enter Required Fields");
+    } else {
+      FirebaseFirestore.instance.collection('users').doc(name).set({
+        'name': name,
+        'email': mail,
+      }).then((value) {
+        log("Data Added");
+      }).catchError((e) {
+        log(e);
+      });
+    }
+  }
+
+  addResistrationInfo() async {
+    await FirebaseFirestore.instance.collection('users').add({
+      'name': namecontroller.text,
+      'email': mailcontroller.text,
+    });
   }
 
   @override
@@ -217,6 +244,8 @@ class _ResistrationScreen extends State<ResistrationScreen> {
                             });
                           }
                           await registration();
+                          addData(namecontroller.text.toString(),
+                              mailcontroller.text.toString());
                         },
                         child: Container(
                           width: MediaQuery.of(context).size.width,
