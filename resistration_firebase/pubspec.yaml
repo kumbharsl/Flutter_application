@@ -9,6 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  path: ^1.9.0
+  sqflite: ^2.3.3+1
+  firebase_auth: ^4.19.5
+  firebase_core: ^2.31.0
+  cloud_firestore: ^4.17.3
+  firebase_storage: ^11.7.5
 
 dev_dependencies:
   flutter_test:

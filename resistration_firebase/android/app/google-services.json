@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "857991176170",
+    "project_id": "registrationapp-5bf7b",
+    "storage_bucket": "registrationapp-5bf7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:857991176170:android:1853edc4a12c924b4d1c93",
+        "android_client_info": {
+          "package_name": "com.example.resistration_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA03q7FVcpEb0NsHO0vGIOdY4TOwb0F1vo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

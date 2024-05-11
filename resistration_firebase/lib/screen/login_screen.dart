@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:resistration_firebase/screen/resistration_screen.dart';
@@ -12,10 +13,38 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreen extends State<LoginScreen> {
-  final _formSignInKey = GlobalKey<FormState>();
-  TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  bool rememberPassword = true;
+  String email = "", password = "";
+
+  TextEditingController mailcontroller = new TextEditingController();
+  TextEditingController passwordcontroller = new TextEditingController();
+
+  final _formkey = GlobalKey<FormState>();
+
+  userLogin() async {
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => DashBoard()));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.orangeAccent,
+            content: Text(
+              "No User Found for that Email",
+              style: TextStyle(fontSize: 18.0),
+            )));
+      } else if (e.code == 'wrong-password') {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Colors.orangeAccent,
+            content: Text(
+              "Wrong Password Provided by User",
+              style: TextStyle(fontSize: 18.0),
+            )));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
@@ -40,7 +69,7 @@ class _LoginScreen extends State<LoginScreen> {
               ),
               child: SingleChildScrollView(
                 child: Form(
-                  key: _formSignInKey,
+                  key: _formkey,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
@@ -56,7 +85,7 @@ class _LoginScreen extends State<LoginScreen> {
                         height: 40.0,
                       ),
                       TextFormField(
-                        controller: email,
+                        controller: mailcontroller,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter Email';
@@ -87,7 +116,7 @@ class _LoginScreen extends State<LoginScreen> {
                         height: 25.0,
                       ),
                       TextFormField(
-                        controller: password,
+                        controller: passwordcontroller,
                         obscureText: true,
                         obscuringCharacter: '*',
                         validator: (value) {
@@ -124,7 +153,11 @@ class _LoginScreen extends State<LoginScreen> {
                         child: ElevatedButton(
                           onPressed: () {
                             bool checkValidation =
-                                _formSignInKey.currentState!.validate();
+                                _formkey.currentState!.validate();
+                            setState(() {
+                              email = mailcontroller.text;
+                              password = passwordcontroller.text;
+                            });
                             if (checkValidation) {
                               bool flag = false;
 
