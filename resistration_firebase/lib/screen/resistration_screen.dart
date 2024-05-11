@@ -265,8 +265,10 @@ class _ResistrationScreen extends State<ResistrationScreen> {
                           ),
                         ),
                       ),
-
                       // already have an account
+                      const SizedBox(
+                        height: 25,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
