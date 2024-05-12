@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,11 +40,17 @@ class _ResistrationScreen extends State<ResistrationScreen> {
         log(mailcontroller.text);
         log(passwordcontroller.text);
 
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
             content: Text(
-          "Registered Successfully",
-          style: TextStyle(fontSize: 20.0),
-        )));
+              "Registered Successfully",
+              style: TextStyle(fontSize: 20.0),
+            ),
+          ),
+        );
+        namecontroller.clear();
+        mailcontroller.clear();
+        passwordcontroller.clear();
         // ignore: use_build_context_synchronously
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginScreen()));

@@ -12,8 +12,8 @@ class UpdateScreen extends StatefulWidget {
 }
 
 class _UpdateScreen extends State<UpdateScreen> {
-  TextEditingController emailcontroller = TextEditingController();
   TextEditingController namecontroller = TextEditingController();
+  TextEditingController emailcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,19 +31,6 @@ class _UpdateScreen extends State<UpdateScreen> {
               ),
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Name',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                controller: namecontroller
-                  ..text = Get.arguments['name'].toString(),
-              ),
-              const SizedBox(
-                height: 25,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -55,21 +42,38 @@ class _UpdateScreen extends State<UpdateScreen> {
               const SizedBox(
                 height: 25,
               ),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Name',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                controller: namecontroller
+                  ..text = Get.arguments['name'].toString(),
+              ),
+              const SizedBox(
+                height: 25,
+              ),
               ElevatedButton(
                 onPressed: () async {
                   await FirebaseFirestore.instance
                       .collection('users')
-                      .doc(Get.arguments['docId'].toString())
+                      .doc(Get.arguments['docId'])
                       .update(
                     {
-                      "name": namecontroller.text,
-                      "email": emailcontroller.text,
+                      "email": emailcontroller.text.trim(),
+                      "name": namecontroller.text.trim(),
                     },
                   ).then(
                     (value) => {
                       Get.offAll(() => DashBoard()),
                     },
                   );
+                  Get.snackbar(
+                      backgroundColor: Colors.green,
+                      "Update",
+                      "User Update Successfully");
                 },
                 child: const Text("Update"),
               )

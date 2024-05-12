@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/get_core.dart';
 import 'package:resistration_firebase/view/update_screen.dart';
 
 class DashBoard extends StatefulWidget {
@@ -21,7 +18,7 @@ class _DashBoard extends State<DashBoard> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple.shade200,
-        title: Text("Register users list"),
+        title: const Text("Register users list"),
       ),
       backgroundColor: Colors.grey.shade100,
       body: Padding(
@@ -52,6 +49,7 @@ class _DashBoard extends State<DashBoard> {
                                 Get.to(
                                   () => const UpdateScreen(),
                                   arguments: {
+                                    'docId': docId,
                                     'name': name,
                                     'email': email,
                                   },
@@ -68,6 +66,11 @@ class _DashBoard extends State<DashBoard> {
                                     .collection('users')
                                     .doc(docId)
                                     .delete();
+                                Get.snackbar(
+                                    snackPosition: SnackPosition.TOP,
+                                    backgroundColor: Colors.red,
+                                    "Delete",
+                                    "User Deleted Successfully");
                               },
                               child: const Icon(Icons.delete_outline),
                             ),

@@ -29,7 +29,7 @@ class _LoginScreen extends State<LoginScreen> {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      Navigator.push(
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => DashBoard()));
       mailcontroller.clear();
       passwordcontroller.clear();
