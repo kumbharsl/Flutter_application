@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:resistration_firebase/view/update_screen.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -10,232 +14,84 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoard extends State<DashBoard> {
+  TextEditingController mailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.purple.shade200,
-        title: Text("Resister users list"),
+        title: Text("Register users list"),
       ),
       backgroundColor: Colors.grey.shade100,
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: StreamBuilder<QuerySnapshot>(
-            stream: FirebaseFirestore.instance.collection('users').snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.active) {
-                if (snapshot.hasData) {
-                  return ListView.builder(
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          leading: CircleAvatar(
-                            child: Text("${index + 1}"),
-                          ),
-                          title: Text("${snapshot.data!.docs[index]['name']}"),
-                          subtitle:
-                              Text("${snapshot.data!.docs[index]['email']}"),
-                        );
-                      });
-                }
+          stream: FirebaseFirestore.instance
+              .collection('users')
+              .where("")
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.active) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.docs.length,
+                  itemBuilder: (context, index) {
+                    var name = snapshot.data!.docs[index]['name'];
+                    var email = snapshot.data!.docs[index]['email'];
+                    var docId = snapshot.data!.docs[index].id;
+                    return ListTile(
+                      contentPadding: const EdgeInsets.all(2),
+                      shape: Border.all(color: Colors.black),
+                      trailing: SizedBox(
+                        width: 70,
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(
+                                  () => const UpdateScreen(),
+                                  arguments: {
+                                    'name': name,
+                                    'email': email,
+                                  },
+                                );
+                              },
+                              child: const Icon(Icons.edit_document),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                FirebaseFirestore.instance
+                                    .collection('users')
+                                    .doc(docId)
+                                    .delete();
+                              },
+                              child: const Icon(Icons.delete_outline),
+                            ),
+                          ],
+                        ),
+                      ),
+                      leading: CircleAvatar(
+                        child: Text("${index + 1}"),
+                      ),
+                      title:
+                          Text("Name : ${snapshot.data!.docs[index]['name']}"),
+                      subtitle: Text(
+                          "Email : ${snapshot.data!.docs[index]['email']}"),
+                    );
+                  },
+                );
               }
-              return Center(
-                child: Text("${snapshot.hasError.toString()}"),
-              );
-            }),
+            }
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        ),
       ),
-      // Padding(
-      //   padding: const EdgeInsets.only(top: 60),
-      //   child: Column(
-      //     crossAxisAlignment: CrossAxisAlignment.start,
-      //     children: [
-      //       Column(
-      //         crossAxisAlignment: CrossAxisAlignment.start,
-      //         children: [
-      //           Container(
-      //             margin: const EdgeInsets.only(
-      //               left: 30,
-      //             ),
-      //             child: const Column(
-      //               crossAxisAlignment: CrossAxisAlignment.start,
-      //               children: [
-      //                 Text(
-      //                   "Welcome,",
-      //                   style: TextStyle(fontSize: 25),
-      //                 ),
-      //                 Text(
-      //                   "Quickensol",
-      //                   style: TextStyle(
-      //                     fontSize: 35,
-      //                     fontWeight: FontWeight.w700,
-      //                     color: Colors.yellow,
-      //                   ),
-      //                 ),
-      //               ],
-      //             ),
-      //           ),
-      //         ],
-      //       ),
-      //       const SizedBox(height: 50),
-      //       Expanded(
-      //         child: Container(
-      //           decoration: const BoxDecoration(
-      //             color: Color.fromRGBO(217, 217, 217, 1),
-      //             borderRadius: BorderRadius.only(
-      //               topLeft: Radius.circular(50),
-      //               topRight: Radius.circular(50),
-      //             ),
-      //           ),
-      //           child: Column(
-      //             children: [
-      //               const SizedBox(height: 10),
-      //               const Text(
-      //                 "User resistration",
-      //               ),
-      //               const SizedBox(height: 25),
-      //               Expanded(
-      //                 child: Container(
-      //                   decoration: const BoxDecoration(
-      //                     color: Colors.white,
-      //                     borderRadius: BorderRadius.only(
-      //                       topRight: Radius.circular(
-      //                         50,
-      //                       ),
-      //                       topLeft: Radius.circular(50),
-      //                     ),
-      //                   ),
-      //                   child: ListView.builder(
-      //                     itemCount: 5,
-      //                     itemBuilder: (BuildContext context, int index) {
-      //                       return Slidable(
-      //                         closeOnScroll: true,
-      //                         endActionPane: ActionPane(
-      //                           extentRatio: 0.2,
-      //                           motion: const DrawerMotion(),
-      //                           children: [
-      //                             Expanded(
-      //                               child: Column(
-      //                                 mainAxisAlignment:
-      //                                     MainAxisAlignment.spaceAround,
-      //                                 children: [
-      //                                   const SizedBox(height: 0),
-      //                                   GestureDetector(
-      //                                     onTap: () {
-      //                                       setState(() {});
-      //                                     },
-      //                                     child: Container(
-      //                                       padding: const EdgeInsets.all(10),
-      //                                       height: 40,
-      //                                       width: 40,
-      //                                       decoration: const BoxDecoration(
-      //                                         color: Color.fromRGBO(
-      //                                             111, 81, 255, 1),
-      //                                         borderRadius: BorderRadius.all(
-      //                                           Radius.circular(20),
-      //                                         ),
-      //                                       ),
-      //                                       child: const Icon(
-      //                                         Icons.edit,
-      //                                         color: Colors.white,
-      //                                         size: 20,
-      //                                       ),
-      //                                     ),
-      //                                   ),
-      //                                   GestureDetector(
-      //                                     onTap: () {
-      //                                       setState(() {});
-      //                                     },
-      //                                     child: Container(
-      //                                       height: 40,
-      //                                       width: 40,
-      //                                       decoration: const BoxDecoration(
-      //                                         color: Color.fromRGBO(
-      //                                             111, 81, 255, 1),
-      //                                         borderRadius: BorderRadius.all(
-      //                                           Radius.circular(
-      //                                             20,
-      //                                           ),
-      //                                         ),
-      //                                       ),
-      //                                       child: const Icon(
-      //                                         Icons.delete,
-      //                                         color: Colors.white,
-      //                                       ),
-      //                                     ),
-      //                                   ),
-      //                                 ],
-      //                               ),
-      //                             ),
-      //                           ],
-      //                         ),
-      //                         child: Container(
-      //                           margin: const EdgeInsets.only(top: 20),
-      //                           decoration: const BoxDecoration(
-      //                               color: Colors.white,
-      //                               boxShadow: [
-      //                                 BoxShadow(
-      //                                     blurRadius: 20,
-      //                                     // spreadRadius: 4,
-      //                                     offset: (Offset(0, 4)),
-      //                                     color: Color.fromRGBO(0, 0, 0, 0.13))
-      //                               ]),
-      //                           child: Column(
-      //                             children: [
-      //                               Row(
-      //                                 children: [
-      //                                   Container(
-      //                                     height: 60,
-      //                                     width: 60,
-      //                                     margin: const EdgeInsets.all(10),
-      //                                     decoration: const BoxDecoration(
-      //                                       color: Colors.white,
-      //                                       shape: BoxShape.circle,
-      //                                       image: DecorationImage(
-      //                                         image: NetworkImage(
-      //                                           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOeBkBjGkyhZH_2CSVP3kQpzeYqbdUyyKbcA&s",
-      //                                         ),
-      //                                       ),
-      //                                     ),
-      //                                   ),
-      //                                   // const SizedBox(width: 5),
-      //                                   Expanded(
-      //                                     child: Column(
-      //                                       crossAxisAlignment:
-      //                                           CrossAxisAlignment.start,
-
-      //                                       children: [
-      //                                         Text(""),
-      //                                         const SizedBox(height: 10),
-      //                                         const SizedBox(height: 5),
-      //                                         const SizedBox(height: 10),
-      //                                       ],
-      //                                     ),
-      //                                   ),
-      //                                 ],
-      //                               ),
-      //                               Row(
-      //                                 children: [
-      //                                   const SizedBox(
-      //                                     width: 80,
-      //                                   ),
-      //                                 ],
-      //                               ),
-      //                               const SizedBox(height: 10),
-      //                             ],
-      //                           ),
-      //                         ),
-      //                       );
-      //                     },
-      //                   ),
-      //                 ),
-      //               ),
-      //             ],
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
     );
   }
 }

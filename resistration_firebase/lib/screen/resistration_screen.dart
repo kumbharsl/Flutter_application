@@ -4,9 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:resistration_firebase/screen/login_screen.dart';
-import 'package:resistration_firebase/services/my_firebase_auth.dart';
-import 'package:resistration_firebase/view/resistration_list.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:resistration_firebase/widgets/custom_scaffold.dart';
 
 class ResistrationScreen extends StatefulWidget {
@@ -17,12 +14,12 @@ class ResistrationScreen extends StatefulWidget {
 }
 
 class _ResistrationScreen extends State<ResistrationScreen> {
-  String email = "", name = "", password = "";
+  String email = "", name = "", password = "", id = "";
 
   // String email = "", password = "", name = "";
-  TextEditingController namecontroller = new TextEditingController();
-  TextEditingController passwordcontroller = new TextEditingController();
-  TextEditingController mailcontroller = new TextEditingController();
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController mailcontroller = TextEditingController();
 
   // addSignUP(){
   //   MyFirebaseAuth.addSignUp(namecontroller.text, mailcontroller.text, passwordcontroller.text);
@@ -44,7 +41,7 @@ class _ResistrationScreen extends State<ResistrationScreen> {
         log(mailcontroller.text);
         log(passwordcontroller.text);
 
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text(
           "Registered Successfully",
           style: TextStyle(fontSize: 20.0),
@@ -54,14 +51,14 @@ class _ResistrationScreen extends State<ResistrationScreen> {
             context, MaterialPageRoute(builder: (context) => LoginScreen()));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.orangeAccent,
               content: Text(
                 "Password Provided is too Weak",
                 style: TextStyle(fontSize: 18.0),
               )));
         } else if (e.code == "email-already-in-use") {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.orangeAccent,
               content: Text(
                 "Account Already exists",
@@ -76,9 +73,10 @@ class _ResistrationScreen extends State<ResistrationScreen> {
     if (name == "" && mail == "") {
       log("Enter Required Fields");
     } else {
-      FirebaseFirestore.instance.collection('users').doc(name).set({
+      FirebaseFirestore.instance.collection('users').doc().set({
         'name': name,
         'email': mail,
+        'id': "",
       }).then((value) {
         log("Data Added");
       }).catchError((e) {

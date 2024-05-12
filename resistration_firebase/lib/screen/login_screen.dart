@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:resistration_firebase/screen/resistration_screen.dart';
 import 'package:resistration_firebase/view/resistration_list.dart';
 import 'package:resistration_firebase/widgets/custom_scaffold.dart';
@@ -37,14 +35,14 @@ class _LoginScreen extends State<LoginScreen> {
       passwordcontroller.clear();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: Colors.orangeAccent,
             content: Text(
               "No User Found for that Email",
               style: TextStyle(fontSize: 18.0),
             )));
       } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             backgroundColor: Colors.orangeAccent,
             content: Text(
               "Wrong Password Provided by User",
@@ -169,14 +167,14 @@ class _LoginScreen extends State<LoginScreen> {
                         },
                         child: Container(
                             width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                                 vertical: 13.0, horizontal: 30.0),
                             decoration: BoxDecoration(
-                                color: Color(0xFF273671),
+                                color: const Color(0xFF273671),
                                 borderRadius: BorderRadius.circular(30)),
-                            child: Center(
+                            child: const Center(
                                 child: Text(
-                              "Sign In",
+                              "Log in",
                               style: TextStyle(
                                   color: Colors.white,
                                   fontSize: 22.0,
