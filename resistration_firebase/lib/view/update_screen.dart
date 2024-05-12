@@ -73,7 +73,7 @@ class _UpdateScreen extends State<UpdateScreen> {
                   Get.snackbar(
                       backgroundColor: Colors.green,
                       "Update",
-                      "User Update Successfully");
+                      "Updated Successfully");
                 },
                 child: const Text("Update"),
               )
