@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:resistration_firebase/firebase_options.dart';
 import 'package:resistration_firebase/screen/login_screen.dart';
-import 'package:resistration_firebase/screen/splash_screen.dart';
-import 'package:resistration_firebase/view/resistration_list.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

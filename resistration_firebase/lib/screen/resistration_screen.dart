@@ -13,7 +13,7 @@ class ResistrationScreen extends StatefulWidget {
 }
 
 class _ResistrationScreen extends State<ResistrationScreen> {
-  String email = "", name = "", password = "", id = "";
+  String email = "", name = "", password = "";
 
   // String email = "", password = "", name = "";
   TextEditingController namecontroller = TextEditingController();
@@ -48,9 +48,9 @@ class _ResistrationScreen extends State<ResistrationScreen> {
             ),
           ),
         );
-        namecontroller.clear();
-        mailcontroller.clear();
-        passwordcontroller.clear();
+        // namecontroller.clear();
+        // mailcontroller.clear();
+        // passwordcontroller.clear();
         // ignore: use_build_context_synchronously
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginScreen()));
@@ -63,12 +63,15 @@ class _ResistrationScreen extends State<ResistrationScreen> {
                 style: TextStyle(fontSize: 18.0),
               )));
         } else if (e.code == "email-already-in-use") {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
               backgroundColor: Colors.orangeAccent,
               content: Text(
                 "Account Already exists",
                 style: TextStyle(fontSize: 18.0),
-              )));
+              ),
+            ),
+          );
         }
       }
     }
@@ -81,7 +84,7 @@ class _ResistrationScreen extends State<ResistrationScreen> {
       FirebaseFirestore.instance.collection('users').doc().set({
         'name': name,
         'email': mail,
-        'id': "",
+        // 'id': "",
       }).then((value) {
         log("Data Added");
       }).catchError((e) {
