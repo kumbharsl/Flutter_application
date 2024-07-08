@@ -20,7 +20,7 @@ class _MoreInfoState extends State<MoreInfo> {
       appBar: AppBar(
         backgroundColor: Colors.amber.shade300,
         title: const Text(
-          "Info",
+          "Information",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -39,13 +39,50 @@ class _MoreInfoState extends State<MoreInfo> {
                   ),
                 );
               },
-              child: Container(
-                child: Text("My Order"),
+              child: const Text(
+                "My Order",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
             Divider(
               color: Colors.teal.shade100,
-              thickness: 1.0,
+              thickness: 2.0,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const OrderPage(),
+                  ),
+                );
+              },
+              child: const Text(
+                "Coupons",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ),
+            Divider(
+              color: Colors.teal.shade100,
+              thickness: 2.0,
+            ),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const OrderPage(),
+                  ),
+                );
+              },
+              child: const Text(
+                "Help Center",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+            ),
+            Divider(
+              color: Colors.teal.shade100,
+              thickness: 2.0,
             ),
           ],
         ),

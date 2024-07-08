@@ -10,7 +10,7 @@ class CheckOutBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = CartProvider.of(context);
     return Container(
-      height: 300,
+      height: 350,
       width: double.infinity,
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -34,7 +34,7 @@ class CheckOutBox extends StatelessWidget {
               ),
               filled: true,
               fillColor: kcontentColor,
-              hintText: "Enter Discoutn Code",
+              hintText: "Enter Discount Code",
               hintStyle: const TextStyle(
                 color: Colors.grey,
                 fontWeight: FontWeight.w600,
@@ -58,7 +58,7 @@ class CheckOutBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                "SbuTotal",
+                "Total",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.grey,
@@ -74,21 +74,68 @@ class CheckOutBox extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 5),
           const Divider(),
-          const SizedBox(height: 10),
+          const SizedBox(height: 5),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                "total",
+                "GST",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                "\$${provider.totalPrice() * 0.18}",
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 5),
+          const Divider(),
+          const SizedBox(height: 5),
+          const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Delivery",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              ),
+              Text(
+                "Free",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey,
+                  fontSize: 16,
+                ),
+              )
+            ],
+          ),
+          const SizedBox(height: 5),
+          const Divider(),
+          const SizedBox(height: 5),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                "Final Total",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
                 ),
               ),
               Text(
-                "\$${provider.totalPrice()}",
+                "\$${provider.totalPrice() + provider.totalPrice() * 0.18}",
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -96,28 +143,29 @@ class CheckOutBox extends StatelessWidget {
               )
             ],
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 12),
           ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: kprimaryColor,
-                minimumSize: const Size(double.infinity, 55),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const BuyDetails(),
-                  ),
-                );
-              },
-              child: const Text(
-                "Check Out",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                  color: Colors.white,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: kprimaryColor,
+              minimumSize: const Size(double.infinity, 55),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BuyDetails(),
                 ),
-              ))
+              );
+            },
+            child: const Text(
+              "Check Out",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: Colors.white,
+              ),
+            ),
+          ),
         ],
       ),
     );
