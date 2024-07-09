@@ -1,0 +1,36 @@
+name: e_commerace
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  google_fonts: ^6.2.1
+  provider: ^6.1.2
+  geolocator: ^12.0.0
+  geocoding: ^3.0.0
+  fluttertoast: ^8.2.6
+  flutter_spinkit: ^5.2.1
+  timeline_tile: ^2.0.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - images/
+    - images/all/
+    - images/shoes/
+    - images/beauty/
+    - images/women fashion/
+    - images/men fashion/
+    - images/jewelry/ 
