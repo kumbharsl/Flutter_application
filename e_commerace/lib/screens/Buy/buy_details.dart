@@ -1,5 +1,6 @@
 import 'package:e_commerace/constants.dart';
 import 'package:e_commerace/screens/Buy/payment_details.dart';
+import 'package:e_commerace/screens/more/ordermodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -238,10 +239,14 @@ class _BuyDetailsState extends State<BuyDetails> {
                   minimumSize: const Size(double.infinity, 55),
                 ),
                 onPressed: () {
-                  Navigator.push(
-                    context,
+                  Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => const PaymentDetails(),
+                      builder: (context) => OrderModel(
+                        name: _enterNameController.text,
+                        phone: _enterNoController.text,
+                        email: _enterEmailController.text,
+                        address: _enterAddController.text,
+                      ),
                     ),
                   );
                 },

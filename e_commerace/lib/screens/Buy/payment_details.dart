@@ -6,7 +6,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PaymentDetails extends StatefulWidget {
-  const PaymentDetails({super.key});
+  const PaymentDetails(
+      {super.key,
+      required name,
+      required phone,
+      required email,
+      required address});
 
   @override
   State<PaymentDetails> createState() => _PaymentDetailsState();

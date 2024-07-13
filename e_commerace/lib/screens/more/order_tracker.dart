@@ -30,7 +30,7 @@ class _OrderTrackState extends State<OrderTrack> {
               isFirst: true,
               isLast: false,
               isPast: true,
-              eventCard: Text("ORDER PLACED"),
+              eventCard: Text("YOUR ORDER PLACED"),
             ),
             MyTimeLineTile(
               isFirst: false,
