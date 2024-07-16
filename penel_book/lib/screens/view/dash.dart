@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:penel_book/screens/page/details_page.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen1 extends StatefulWidget {
+  const HomeScreen1({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen1> createState() => _HomeScreen1State();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreen1State extends State<HomeScreen1> {
   final List<Map<String, dynamic>> allBooks = [
     {
       "image":
@@ -190,74 +189,47 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(12),
-        child: Column(
-          children: [
-            TextField(
-              onChanged: (value) => _runFilter(value),
-              decoration: InputDecoration(
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-                hintText: 'Search',
-                suffixIcon: const Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              GestureDetector(
+                child: Container(
+                  height: 80,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.orange.shade300,
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.black26,
+                        offset: Offset(2, 4),
+                        blurRadius: 5,
+                        blurStyle: BlurStyle.normal,
+                        spreadRadius: 2,
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Container(
+                          width: 100,
+                          height: 80,
+                          decoration: const BoxDecoration(
+                            color: Colors.purple,
+                          ),
+                        ),
+                        Column(
+                          children: [],
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Expanded(
-              child: _foundBooks.isNotEmpty
-                  ? ListView.builder(
-                      itemCount: _foundBooks.length,
-                      itemBuilder: (context, index) => Card(
-                        elevation: 1,
-                        margin: const EdgeInsets.symmetric(vertical: 2),
-                        child: ListTile(
-                          trailing: IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.favorite_border_outlined),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetailsPage(
-                                  allBooks: allBooks[index]['name'],
-                                ),
-                              ),
-                            );
-                          },
-                          leading: GestureDetector(
-                            onTap: () {
-                              showDialogFunc(
-                                  context,
-                                  _foundBooks[index]['name'],
-                                  _foundBooks[index]['image']);
-                            },
-                            child: Image.network(
-                              _foundBooks[index]['image'],
-                              width: 50,
-                              height: 100,
-                            ),
-                          ),
-
-                          // onLongPress: () {
-
-                          // },
-                          title: Text(_foundBooks[index]['name']),
-                          subtitle: Text('${_foundBooks[index]["des"]}'),
-                        ),
-                      ),
-                    )
-                  : const Text(
-                      'No Book Found',
-                      style: TextStyle(
-                        fontSize: 24,
-                      ),
-                    ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
