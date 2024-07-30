@@ -7,10 +7,10 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => ProductProvider()),
-        ChangeNotifierProvider(create: (_) => CartProvider()),
+        // ChangeNotifierProvider(create: (_) => ProductProvider()),
+        // ChangeNotifierProvider(create: (_) => CartProvider()),
       ],
-      child: MyApp(),
+      // child: MyApp(),
     ),
   );
 }

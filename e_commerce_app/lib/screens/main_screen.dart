@@ -32,12 +32,14 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: _buildScreens[currentIndex],
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-              border: Border(
+      body: _buildScreens[currentIndex],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
             top: BorderSide(color: Colors.black26, width: 0.5),
-          )),
-        ));
+          ),
+        ),
+      ),
+    );
   }
 }
